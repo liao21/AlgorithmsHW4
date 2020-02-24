@@ -11,60 +11,42 @@
 #include "radixsort.h"
 
 
-// radixsort on the array of integers, base 10
-void radixsort( int arr[], int length) {
-  //calculate max_length
-    int max_value = get_max(arr, length);
-    int max_length = 0;
-    while(max_value > 0) {
-      max_value = (int)(max_value/10);
-      max_length++;
-    }
-    printf("max_length: %d\n", max_length);
+#define RANGE 10 //because we're in base 10
 
-    for(int i=0; i<max_length; i++){
-      int place = power(10,i);
-      int mod = place*10;
+// https://www.hackerearth.com/practice/algorithms/sorting/radix-sort/tutorial/
+void countsort(int arr[],int n,int place)
+{
+  int i,freq[RANGE]={0};
+  int output[n];
+  for(i=0;i<n;i++)
+    // occur: frequency of arr[i]: freq[(arr[i]/place)%RANGE]
+    freq[(arr[i]/place)%RANGE]++;
+  for(i=1;i<RANGE;i++)
+    //make freq array cumulative
+    //occur represents # elements that should be before arr[i]
+    freq[i]+=freq[i-1];
+  for(i=n-1;i>=0;i--) {
 
-      int i;
-      for(int j=0; j<length; j++){
-        int key = arr[j];
-        i = j-1;
-        while (i>=0 && (arr[i]%mod)>key%mod){
-          arr[i+1] = arr[i];
-          i--;
-        arr[i+1] = key;
-        }
-      }
-    }
-}
-
-// int* insertionsort(int arr[], int length){
-//   if(arr == NULL || length == 1) return arr;
-//
-//   int i;
-//   for(int j=0; j<length; j++){
-//     int key = arr[j];
-//     i = j-1;
-//     while (i>=0 && arr[i]>key){
-//       arr[i+1] = arr[i];
-//       i--;
-//     arr[i+1] = key;
-//     }
-//   }
-//   return arr;
-// }
-
-//only for non-negative powers
-int power(int base, int power){
-  int ret = 1;
-  while(power>0){
-    ret *= base;
-    power--;
+    // put arr[i] right before the occur spot in output
+      //the -1 accounts for being 0 indexed
+    output[freq[(arr[i]/place)%RANGE]-1]=arr[i];
+    //decrement occur so the next occurance of this number goes to a before ^^^ this one
+    //since the for loop is backwards, this countsort is stable
+    freq[(arr[i]/place)%RANGE]--;
   }
-  return ret;
+  //copy output into the array
+  for(i=0;i<n;i++){
+    arr[i]=output[i];
+  }
 }
-
+void radixsort(int arr[],int n,int maxx)  //maxx is the maximum element in the array
+{
+  int place=1;
+  for(int max=maxx; max>0; max/=10){
+    countsort(arr,n,place);
+    place*=10;
+  }
+}
 
 int get_max(int arr[], int len){
   if (arr == NULL) return 0;
@@ -95,13 +77,14 @@ int main( int argc, char const *argv[] ) {
     // Generate the input. The array pointer points to an array already alloced to the heap
     int * array = generate_input( num_elements );
 
-    check_output( array, num_elements );
+    // check_output( array, num_elements );
 
+    int maxx = get_max(array, num_elements);
     // Sort the array using radixsort. This is in done in place on the heap
-    radixsort(array, num_elements);
+    radixsort(array, num_elements, maxx);
 
     // Print the first and last 5 elements to check if the sorting is working
-    check_output( array, num_elements );
+    // check_output( array, num_elements );
 
     // free and exit
     free( array );

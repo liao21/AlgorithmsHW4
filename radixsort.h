@@ -5,8 +5,9 @@
 #ifndef RADIXSORT_H_
 #define RADIXSORT_H_
 
-int power(int base, int power);
-void radixsort( int arr[], int num_elements);
+void radixsort(int arr[],int n,int maxx);
+void countsort(int arr[], int length, int place);
+int* insertionsort_radix(int arr[], int length, int mod);
 int get_max(int arr[], int len);
 
 #endif

@@ -35,10 +35,18 @@
 
 * **radixsort**
   * **Files:** *radixsort.c / radixsort.h*
-  * **Description:** --To be implemented--
+  * **Description:** contains quicksort algorithm which uses insertionsort as
+  a stable sort for each digit
   * **Functions:**
-    * --To be implemented--
-
+    * `radixsort`
+      * params: *int* arr[], *int* length
+      * return *void*
+    * `power`
+      * params: *int* base *int* power
+      * return *int* ret
+    * `get_max`
+      * params *int* arr[] *int* len
+      * return *int* max
 * **MAKEFILE**
 
 ## 'make' Usage:

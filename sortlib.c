@@ -32,9 +32,6 @@ int * generate_input( int num_elements ) {
     for( i = 0; i < num_elements; i++ ) {
         array[i] = generate_random_num(num_elements);
     }
-    printf("RAND_MAX: %d\n", RAND_MAX);
-    printf("LIST_MAX: %d\n", LIST_MAX);
-    printf("num_elements: %d\n", num_elements);
     return array;
 }
 
