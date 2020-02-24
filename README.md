@@ -4,6 +4,7 @@
 ## Sorting algorithms completed:
 
 * quicksort A
+  radixsort A
 
 ## Included:
 
@@ -12,7 +13,7 @@
   * **Description:** contains all the important common functions for sorting, i.e. generating random list of specific length, printing first and last 5 elements
   * **Functions:**
     * `generate_random_num`
-      * params: none
+      * params: *int* num_elements
       * return: *int*
     * `generate_input`
       * params: *int* num_elements
