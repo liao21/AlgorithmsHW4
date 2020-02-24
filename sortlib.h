@@ -7,7 +7,7 @@
 
 #define LIST_MAX 100
 
-int generate_random_num();
+int generate_random_num(int max_val);
 int * generate_input(int num_elements);
 void check_output(int * arr, int size);
 
