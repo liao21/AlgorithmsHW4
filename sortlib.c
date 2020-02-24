@@ -9,13 +9,13 @@
 
 // Generate a random number between 0 and [limit] inclusive
 // Source: https://stackoverflow.com/questions/2999075/generate-a-random-number-within-LIST_MAX/
-int generate_random_num() {
-    int divisor = RAND_MAX / ( LIST_MAX + 1 );
+int generate_random_num(int max_val) {
+    int divisor = RAND_MAX / ( max_val + 1 );
     int retval;
     // Properly generate the random numbers without mod
     do {
         retval = rand() / divisor;
-    } while ( retval > LIST_MAX );
+    } while ( retval > max_val );
 
     return retval;
 }
@@ -30,8 +30,11 @@ int * generate_input( int num_elements ) {
     srand( (unsigned) time( NULL ) );
     // Populate the array and return it
     for( i = 0; i < num_elements; i++ ) {
-        array[i] = generate_random_num();
+        array[i] = generate_random_num(num_elements);
     }
+    printf("RAND_MAX: %d\n", RAND_MAX);
+    printf("LIST_MAX: %d\n", LIST_MAX);
+    printf("num_elements: %d\n", num_elements);
     return array;
 }
 
